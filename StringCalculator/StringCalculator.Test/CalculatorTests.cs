@@ -42,5 +42,12 @@ namespace StringCalculator.Test
             int output = objCal.AddNumbers("1,2,3,5");
             Assert.AreEqual(11, output);
         }
+
+        [TestMethod]
+        public void CheckNewLineInputReturnSum()
+        {
+            int output = objCal.AddNumbers("1\n2,3,4");
+            Assert.AreEqual(10, output);
+        }
     }
 }

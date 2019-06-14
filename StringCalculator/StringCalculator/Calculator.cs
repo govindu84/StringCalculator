@@ -8,9 +8,13 @@ namespace StringCalculator
 {
     public class Calculator
     {
+
+        char[] customSeperator = { ',', '\n' };
+
         static void Main(string[] args)
         {
-            
+            //Calculator ob = new Calculator();
+            //ob.AddNumbers("1\n2,3\n4");
         }
 
         public int AddNumbers(string input)
@@ -18,7 +22,7 @@ namespace StringCalculator
             if (String.IsNullOrEmpty(input))
                 return 0;
 
-            string[] strInput = input.Split(',');
+            string[] strInput = input.Split(customSeperator);
             int sum = 0;
             foreach (string value in strInput)
             {
@@ -26,5 +30,6 @@ namespace StringCalculator
             }
             return sum;
         }
+
     }
 }
