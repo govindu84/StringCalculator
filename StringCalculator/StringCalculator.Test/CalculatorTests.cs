@@ -49,5 +49,46 @@ namespace StringCalculator.Test
             int output = objCal.AddNumbers("1\n2,3,4");
             Assert.AreEqual(10, output);
         }
+       [TestMethod]
+        public void CheckDifferentDelimiterSum()
+        {
+            var result = objCal.AddNumbers("//A\n3A4");
+            Assert.AreEqual(7, result);
+        }
+       [TestMethod]
+        public void CheckDifferentDelimiterSum2()
+        {
+            var result = objCal.AddNumbers("//B\n2B3");
+            Assert.AreEqual(5, result);
+        }
+        [TestMethod]
+        public void AddNumber1000Ignored()
+        {
+            var result = objCal.AddNumbers("2,1001");
+            Assert.AreEqual(2, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void CheckNegativeException()
+        {
+            var result = objCal.AddNumbers("-1");
+        }
+       
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void SendNegativeandPositive_ThrowsOnlytheNegative()
+        {
+            var result = objCal.AddNumbers("-1,5");
+        }
+
+        [TestMethod]    
+        public void AcceptMultipleDelimeters()
+        {
+            var result = objCal.AddNumbers("//[*][%]\n1*2%3");
+            Assert.AreEqual(6, result);
+        }
+
+     
     }
 }
