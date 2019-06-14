@@ -89,6 +89,15 @@ namespace StringCalculator.Test
             Assert.AreEqual(6, result);
         }
 
-     
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if (objCal != null)
+            {
+                objCal = null;
+            }
+
+        }
+
     }
 }

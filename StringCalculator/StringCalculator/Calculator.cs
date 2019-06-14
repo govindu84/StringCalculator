@@ -8,26 +8,26 @@ namespace StringCalculator
 {
     public class Calculator
     {
-        string delimiter = "//";
-        int Default_Value = 0;
+        private const string DELIMITER = "//";
+        private const int DEFAULT_VALUE = 0;
+        private int MAX = 1000;
         List<string> customSeperators = new List<string>() { ",", "\n" };
-        int max = 1000;
-
-        static void Main(string[] args)
-        {
-            //Calculator ob = new Calculator();
-            //ob.AddNumbers("//[*][%]\n1*2%3");
-        }
-
+   
+        /// <summary>
+        /// Perform Addition of numbers in a input string.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public int AddNumbers(string input)
         {
             if (String.IsNullOrEmpty(input))
-                return Default_Value;
-            if (input.StartsWith(delimiter))
+                return DEFAULT_VALUE;
+            if (input.StartsWith(DELIMITER))
             {
                 input = AddSeperators(input);
             }
 
+            //split the input by provided delimiters
             string[] strInput = input.Split(customSeperators.ToArray(), StringSplitOptions.RemoveEmptyEntries);
 
             var lstNumbers = new List<int>();
@@ -36,9 +36,9 @@ namespace StringCalculator
                 var number = int.Parse(num);
                 if (number < 0)
                 {
-                    throw new ApplicationException("negatives not allowed in input");
+                    throw new ApplicationException("negatives not allowed in input"); //Throw the exception, if input have negitve numbers
                 }
-                if (number <= max)
+                if (number <= MAX)
                 {
                     lstNumbers.Add(number);
                 }
@@ -46,9 +46,11 @@ namespace StringCalculator
 
             return lstNumbers.Sum();
         }
+
+
         private string AddSeperators(string input)
         {
-            string[] customSeperatorsInput = { delimiter, "[", "]" };
+            string[] customSeperatorsInput = { DELIMITER, "[", "]" };
             var customSeperator = input.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).First();
 
             input = input.Substring(customSeperator.Length, input.Length - customSeperator.Length);
@@ -59,6 +61,13 @@ namespace StringCalculator
                 customSeperators.Add(value);
             }
             return input;
+        }
+
+
+        static void Main(string[] args)
+        {
+            Calculator objCal = new Calculator();
+            objCal.AddNumbers("//[*][%]\n1*2%3");
         }
     }
 }
